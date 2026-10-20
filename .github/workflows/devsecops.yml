@@ -43,4 +43,4 @@ jobs:
       - name: Install Bandit
         run: python -m pip install bandit
       - name: Run Bandit SAST and Quality Gate
-        run: bandit -r . -x .git,.github -ll
+        run: bandit -r . -x .git,.github -ll --severity-level medium
