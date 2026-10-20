@@ -21,10 +21,15 @@ py -m unittest tests
 ```
 
 ## 5. Menjalankan pemindaian SAST
-```powershell
+Instal dependensi menggunakan perintah:
+
 py -m pip install -r requirements.txt
-py -m bandit -r . -x .git,.github -ll
-```
+
+Jalankan pemindaian keamanan kode Python menggunakan Bandit:
+
+py -m bandit -r . -x .git,.github --severity-level medium
+
+Bandit memeriksa kode dan melaporkan temuan dengan tingkat keparahan Medium atau High. Jika ditemukan masalah yang memenuhi ambang tersebut, Bandit mengembalikan exit code nonzero sehingga job SAST pada pipeline gagal.
 
 ## 6. Overview pipeline DevSecOps
 Workflow `.github/workflows/devsecops.yml` berjalan saat ada push ke branch `main` atau pull request menuju `main`. Job `build` menjalankan unit test. Setelah job tersebut berhasil, job `sast-scan` menjalankan Bandit. Pemindaian menggunakan `-ll` sehingga pipeline gagal jika ditemukan isu berkeparahan Medium atau High.
