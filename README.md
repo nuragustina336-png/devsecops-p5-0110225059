@@ -32,4 +32,4 @@ py -m bandit -r . -x .git,.github --severity-level medium
 Bandit memeriksa kode dan melaporkan temuan dengan tingkat keparahan Medium atau High. Jika ditemukan masalah yang memenuhi ambang tersebut, Bandit mengembalikan exit code nonzero sehingga job SAST pada pipeline gagal.
 
 ## 6. Overview pipeline DevSecOps
-Workflow `.github/workflows/devsecops.yml` berjalan saat ada push ke branch `main` atau pull request menuju `main`. Job `build` menjalankan unit test. Setelah job tersebut berhasil, job `sast-scan` menjalankan Bandit. Pemindaian menggunakan `-ll` sehingga pipeline gagal jika ditemukan isu berkeparahan Medium atau High.
+Workflow .github/workflows/devsecops.yml berjalan ketika ada push ke branch main atau pull request menuju main. Pipeline terdiri dari dua job, yaitu build dan sast-scan. Job build memasang dependensi dan menjalankan unit test. Setelah job build berhasil, job sast-scan menjalankan Bandit untuk memindai kode Python menggunakan opsi -ll, yang menetapkan ambang keparahan Medium ke atas. Jika ditemukan isu yang memenuhi ambang tersebut, pemindaian gagal dan pipeline dinyatakan gagal.
